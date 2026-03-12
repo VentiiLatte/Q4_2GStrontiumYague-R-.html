@@ -1,96 +1,170 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Clubs sign up</title>
-    <style>
-        body { font-family: Arial, sans-serif; background-color: #f0f0f0; padding: 20px; }
-        form { width: 500px; margin: auto; background: white; padding: 20px; border: 1px solid #000; }
-        fieldset { margin-bottom: 15px; }
-        label { display: block; margin-top: 10px; }
-        input, select { width: 100%; padding: 5px; box-sizing: border-box; }
-        input[type="radio"] { width: auto; }
-        .buttons { text-align: center; margin-top: 20px; }
-        /* style for the invalid */
-        .invalid { border: 2px solid red; }
-        .view-btn { margin-left: 10px; }
-    </style>
+<title>My Movie List</title>
+
+<style>
+body{
+    font-family: Arial;
+    background-color: lightgray;
+}
+
+.box{
+    background: white;
+    width: 300px;
+    margin: auto;
+    padding: 15px;
+    border: 1px solid black;
+}
+
+input, select{
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.star{
+    font-size: 22px;
+    cursor: pointer;
+    color: gray;
+}
+
+.gold{
+    color: gold;
+}
+
+.movie{
+    border: 1px solid gray;
+    margin-top: 10px;
+    padding: 5px;
+}
+</style>
 </head>
+
 <body>
 
-<form id="regForm">
-    <fieldset>
-        <legend>Student Information</legend>
-        <label>ID: <input type="number" id="sid" required></label>
-        <label>Full Name: <input type="text" id="sname" required onblur="checkField(this)"></label>
-        <label>Email: <input type="email" id="semail" required></label>
-    </fieldset>
+<div class="box">
 
-    <fieldset>
-        <legend>Club Details</legend>
-        <label>Grade: 
-            <select id="sgrade" required>
-                <option value="">-- select --</option>
-                <option>Grade 7</option><option>Grade 8</option><option>Grade 9</option><option>Grade 10</option>
-            </select>
-        </label>
-        <label>Mobile: <input type="text" id="smobile" required></label>
-        <label>Club:
-            <select id="sclub" required>
-                <option value="">-- select --</option>
-                <option>Bake Club</option><option>Himig Agham</option><option>Computron</option>
-            </select>
-        </label>
-        <label>Type: 
-            <input type="radio" name="stype" value="Intern" checked> Intern
-            <input type="radio" name="stype" value="Extern"> Extern
-        </label>
-    </fieldset>
+<h2>Movie List</h2>
 
-    <div class="buttons">
-        <input type="submit" value="Submit/Accept">
-        <input type="reset" value="Reset">
-<button type="button" onclick="location.href='viewsignups.html'">View Signups</button>
-        </div>
-</form>
+Title:<br>
+<input id="title">
+
+Year:<br>
+<input id="year">
+
+Genre:<br>
+<select id="genre">
+<option>Action</option>
+<option>Comedy</option>
+<option>Drama</option>
+<option>Horror</option>
+</select>
+
+Rating:<br>
+
+<span class="star" onclick="rate(1)">★</span>
+<span class="star" onclick="rate(2)">★</span>
+<span class="star" onclick="rate(3)">★</span>
+<span class="star" onclick="rate(4)">★</span>
+<span class="star" onclick="rate(5)">★</span>
+
+<br><br>
+
+<button onclick="addMovie()">Add Movie</button>
+
+<h3>Movies</h3>
+<div id="list"></div>
+
+</div>
 
 <script>
-    function checkField(field) {
-        if (field.value == "") {
-            field.className = "invalid";
-        } else {
-            field.className = "";
-        }
+
+var rating = 0;
+
+function rate(num){
+
+    rating = num;
+
+    var stars = document.getElementsByClassName("star");
+
+    for(var i = 0; i < stars.length; i++){
+        stars[i].classList.remove("gold");
     }
 
-    // the data saver
-    document.getElementById('regForm').onsubmit = function(e) {
-        e.preventDefault(); //stops the page from reloading
+    for(var i = 0; i < num; i++){
+        stars[i].classList.add("gold");
+    }
+}
 
-        if (confirm("Save this signup?")) {
-            // grabs all values from the form
-            let student = {
-                club: document.getElementById('sclub').value,
-                id: document.getElementById('sid').value,
-                name: document.getElementById('sname').value,
-                grade: document.getElementById('sgrade').value,
-                email: document.getElementById('semail').value,
-                mobile: document.getElementById('smobile').value,
-                type: document.querySelector('input[name="stype"]:checked').value
-            };
+function addMovie(){
 
-            //check if theres already data in the storage
-            let list = JSON.parse(localStorage.getItem('myClubData')) || [];
-            
-            // add the new student to the list
-            list.push(student);
-            
-            // save the list back to localstorage
-            localStorage.setItem('myClubData', JSON.stringify(list));
+    var title = document.getElementById("title").value;
+    var year = document.getElementById("year").value;
+    var genre = document.getElementById("genre").value;
 
-            alert("Saved successfully!");
-            this.reset();
-        }
+    if(title == "" || year == "" || rating == 0){
+        alert("Fill everything first");
+        return;
+    }
+
+    var movie = {
+        title: title,
+        year: year,
+        genre: genre,
+        rating: rating
     };
+
+    var movies = JSON.parse(localStorage.getItem("movies"));
+
+    if(movies == null){
+        movies = [];
+    }
+
+    movies.push(movie);
+
+    localStorage.setItem("movies", JSON.stringify(movies));
+
+    document.getElementById("title").value = "";
+    document.getElementById("year").value = "";
+
+    rating = 0;
+
+    showMovies();
+}
+
+function showMovies(){
+
+    var list = document.getElementById("list");
+    list.innerHTML = "";
+
+    var movies = JSON.parse(localStorage.getItem("movies"));
+
+    if(movies == null){
+        return;
+    }
+
+    for(var i = 0; i < movies.length; i++){
+
+        var div = document.createElement("div");
+        div.className = "movie";
+
+        var stars = "";
+
+        for(var s = 0; s < movies[i].rating; s++){
+            stars += "★";
+        }
+
+        div.innerHTML =
+            movies[i].title + " (" + movies[i].year + ") - " +
+            movies[i].genre + " Rating: " + stars;
+
+        list.appendChild(div);
+    }
+}
+
+showMovies();
+
 </script>
+
 </body>
 </html>
