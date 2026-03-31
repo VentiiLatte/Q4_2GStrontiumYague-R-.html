@@ -42,7 +42,7 @@
       <a href="index.html#output">Output</a>
     </nav>
     
-    <h1 style="padding: 30px">Your Name / Section Mar 2026 </h1>
+    <h1 style="padding: 30px">Yague Rafael/Miguel Yague / Sr Mar 2026 </h1>
   </header>
 
   <section id="table">
@@ -56,63 +56,63 @@
       </tr>
       <tr>
         <td> 1 </td> 
-        <td> </td> 
-        <td> </td>
-        <td> </td>
+        <td> code line 1<br/> JS </td> 
+        <td> plotPoint() has no parameters in script, but HTML passes four </td>
+        <td> Changed to function plotPoint(x0, y0, x, y) </td>
       </tr>
       <tr>
         <td> 2 </td> 
-        <td> </td> 
-        <td> </td>
-        <td> </td>
+        <td> code line 6<br/> JS </td> 
+        <td> point.styleleft isnt a valid JavaScript property. </td>
+        <td> used point.style.left</td>
       </tr>
       <tr>
         <td> 3 </td> 
-        <td> </td> 
-        <td> </td>
-        <td> </td>
+        <td> code line 7<br/> JS </td> 
+        <td> point.stylebottom isnt a valid JavaScript property</td>
+        <td> Use point.style.bottom</td>
       </tr>
       <tr>
         <td> 4 </td> 
-        <td> </td> 
-        <td> </td>
-        <td> </td>
+        <td> code line 6 & 7 <br/> JS </td> 
+        <td> Points have coordinates but no position:absolute, so they won't move on the screen </td>
+        <td> add point.style.position = 'absolute'; in the script or add position: absolute; to the .point class in CSS</td>
       </tr>
       <tr>
         <td> 5 </td> 
-        <td> </td> 
-        <td> </td>
-        <td> </td>
+        <td> code line 26-29 <br/> CSS </td> 
+        <td> the requirements state the navigation should not scroll with the content, and the css currently doesnt implement ts. </td>
+        <td> Add position: fixed; top: 0; z-index: 1000; to the nav selector. </td>
       </tr>
       <tr>
         <td> 6 </td> 
-        <td> </td> 
-        <td> </td>
-        <td> </td>
+        <td> code line 32 <br/> CSS </td> 
+        <td> The requirements state navigation should be on one line. Currently, it stacks them vertically. </td>
+        <td> Change display: block; to display: inline-block; </td>
       </tr>
       <tr>
         <td> 7 </td> 
-        <td> </td> 
-        <td> </td>
-        <td> </td>
+        <td> code line 39 <br/> CSS </td> 
+        <td> The selector nav a :hover has a space before the colon. This looks for a hovered element inside the LINK rather than the actual link itself.</td>
+        <td> change to nav a:hover</td>
       </tr>
       <tr>
         <td> 8 </td> 
-        <td> </td> 
-        <td> </td>
-        <td> </td>
+        <td> code line 79 <br/> CSS </td> 
+        <td> The CSS background: url('sprites.png'). However, the project expects a different filename </td>
+        <td> make sure the image filename actually matches the file, images/sprites.png </td>
       </tr>
       <tr>
         <td> 9 </td> 
-        <td> </td> 
-        <td> </td>
-        <td> </td>
+        <td> Code line 21 <br/> CSS </td> 
+        <td> The nav bar is missing a width of 100%, which can make the background color cut off</td>
+        <td> Added width: 100%</td>
       </tr>
       <tr>
         <td> 10 </td> 
-        <td> </td> 
-        <td> </td>
-        <td> </td>
+        <td> Code line 102 <br/> CSS </td> 
+        <td> The hover coordinates for the social icons in the sprite sheet are off by a few pixels?</td>
+        <td> adjust the background-position values so the icons align perfectly</td>
       </tr>
      
     </table>
