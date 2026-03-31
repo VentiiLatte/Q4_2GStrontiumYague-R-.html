@@ -24,3 +24,4 @@ function plotPoint(x0, y0, x, y) {
     else{
       out1.innerHTML = "divisa";
     }
+}
